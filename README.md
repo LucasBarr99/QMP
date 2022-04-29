@@ -1,8 +1,8 @@
-#QUE ME PONGO - PRIMERA ITERACIÓN
+#QUE ME PONGO - SEGUNDA ITERACIÓN
 
 DIAGRAMA DE CLASES
 
-![Diagrama QMPv2](https://user-images.githubusercontent.com/69949020/163748407-b26f4807-4191-40bf-a1ba-6d60de77b313.png)
+![diagramaIteracion2.png](DiagramaDeClases/diagramaIteracion2.png)
 
 
 PSEUDOCODIGO
@@ -32,6 +32,14 @@ enum TipoPrenda{
     CROCS{@override getCategoria(){return CALZADO}}
 }
 
+enum TramaPrenda{
+    LISA,
+    RAYADA,
+    CON_LUNARES,
+    A_CUADROS,
+    ESTAMPADO
+}
+
 
 Class Prenda{
 
@@ -39,11 +47,16 @@ Class Prenda{
     Material materialPrenda
     Color colorPrincipal
     Color colorSecundario
+    TramaPrenda trama = TramaPrenda.LISA
 
-    Prenda(TipoPrenda tipo, Material material, Color colorPrimario){
-        this.tipoPrenda = requireNonNull(tipo,"El tipo de una prenda es obligatorio");
-        this.materialPrenda = requireNonNull(material,"El material de una prenda es obligatorio");
-        this.colorPrincipal = requireNonNull(colorPrimario,"El color Principal de una prenda es obligatorio");
+    Prenda(TipoPrenda tipo, Material material, Color colorPrimario, Color colorSecundario, TramaPrenda trama){
+        this.tipoPrenda = tipo;
+        this.materialPrenda = material;
+        this.colorPrincipal = colorPrimario;
+        this.colorSecundario = colorSecundario;
+        if(trama != null){
+            this.trama = trama;
+        }
     }
 
     void setColorSecundario(Color color){
@@ -53,5 +66,43 @@ Class Prenda{
     CategoriaPrenda getCategoria{
         return tipo.getCategoria()
     }    
+}
+
+Class BorradorPrenda{
+
+    TipoPrenda tipoPrenda
+    Material materialPrenda
+    Color colorPrincipal
+    Color colorSecundario
+    TramaPrenda trama = TramaPrenda.LISA
+    
+    BorradorPrenda(TipoPrenda tipo){
+        this.tipoPrenda = requireNonNull(tipo,"El tipo de una prenda es obligatorio");
+    }
+
+    void setMaterial(Material materialPrenda){
+        this.materialPrenda = materialPrenda;
+    }
+    
+    void setColorPrincipal(Color colorPrimario){
+        this.colorPrincipal = colorPrimario;
+    }
+
+    void setColorSecundario(Color color){
+        this.colorSecundario = color;
+    }    
+
+    void setTrama(TramaPrenda trama){
+        this.trama = trama;
+    }
+
+    Prenda crearPrenda(){
+        if( this.materialPrenda != null && this.colorPrincipal != null){
+            return new Prenda(tipoPrenda,materialPrenda,colorPrincipal,colorSecundario,trama);
+        }
+        else{
+            throw new prendaInvalidaException("El material y el color principal son obligatorios")
+        }
+    }
     
 }

@@ -22,20 +22,37 @@ enum TipoPrenda{
 
 }
 
+enum TramaPrenda{
+    LISA,
+    RAYADA,
+    CON_LUNARES,
+    A_CUADROS,
+    ESTAMPADO
+}
+
 class Prenda{
 	TipoPrenda tipoPrenda
     Material materialPrenda
     Color colorPrincipal
     Color colorSecundario
+    TramaPrenda trama
+}
+
+class BorradorPrenda{
+    TipoPrenda tipoPrenda
+    Material materialPrenda
+    Color colorPrincipal
+    Color colorSecundario
+    TramaPrenda trama
+
+    crearPrenda()
 }
 
 
 
-Prenda -> TipoPrenda
-Material <- Prenda
+Prenda -up-> TipoPrenda
+Prenda -up-> Material
+Prenda -up-> TramaPrenda
 TipoPrenda --> CategoriaPrenda
-@enduml
-
-
-
+BorradorPrenda .up.> Prenda
 @enduml
