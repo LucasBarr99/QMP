@@ -15,8 +15,7 @@ enum CategoriaPrenda{
     CALZADO
 }
 
-enum MaterialPrenda{
-
+enum Material{
     ALGODON,
     LANA,
     SEDA,
@@ -37,19 +36,22 @@ enum TipoPrenda{
 Class Prenda{
 
     TipoPrenda tipoPrenda
-    MaterialPrenda materialPrenda
+    Material materialPrenda
     Color colorPrincipal
     Color colorSecundario
 
-    Prenda(TipoPrenda tipo, MaterialPrenda material, Color colorP){
-        this.tipoPrenda = tipo != null ? tipo : throw new DomainException("el atributo tipo es obligatorio")
-        this.materialPrenda = material != null ? material : throw new DomainException("el atributo material es obligatorio")
-        this.colorPrincipal =colorP != null ? colorP : throw new DomainException("el atributo color principal es obligatorio")
+    Prenda(TipoPrenda tipo, Material material, Color colorPrimario){
+        this.tipoPrenda = requireNonNull(tipo,"El tipo de una prenda es obligatorio");
+        this.materialPrenda = requireNonNull(material,"El material de una prenda es obligatorio");
+        this.colorPrincipal = requireNonNull(colorPrimario,"El color Principal de una prenda es obligatorio");
+    }
+
+    void setColorSecundario(Color color){
+        this.colorSecundario = color;
     }
 
     CategoriaPrenda getCategoria{
         return tipo.getCategoria()
-    }
-    
+    }    
     
 }

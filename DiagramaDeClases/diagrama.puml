@@ -1,0 +1,41 @@
+@startuml
+
+enum CategoriaPrenda{
+	ACCESORIOS,
+    PARTE_SUPERIOR,
+    PARTE_INFERIOR,
+    CALZADO
+}
+
+enum Material{
+	ALGODON,
+    LANA,
+    SEDA,
+    FIBRA_SINTETICA
+}
+
+enum TipoPrenda{
+    ANTEOJOS
+    REMERA_MANGA_CORTA
+    PANTALON
+    CROCS
+
+}
+
+class Prenda{
+	TipoPrenda tipoPrenda
+    Material materialPrenda
+    Color colorPrincipal
+    Color colorSecundario
+}
+
+
+
+Prenda -> TipoPrenda
+Material <- Prenda
+TipoPrenda --> CategoriaPrenda
+@enduml
+
+
+
+@enduml
