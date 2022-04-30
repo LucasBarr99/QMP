@@ -76,8 +76,8 @@ Class BorradorPrenda{
     Color colorSecundario
     TramaPrenda trama = TramaPrenda.LISA
     
-    BorradorPrenda(TipoPrenda tipo){
-        this.tipoPrenda = requireNonNull(tipo,"El tipo de una prenda es obligatorio");
+    void setTipo(TipoPrenda tipo){
+        this.tipoPrenda = tipo;
     }
 
     void setMaterial(Material materialPrenda){
@@ -96,13 +96,15 @@ Class BorradorPrenda{
         this.trama = trama;
     }
 
+    void validarPrenda(){
+        requireNonNull(tipoPrenda,"Falta el tipo de prenda");
+        requireNonNull(materialPrenda,"Falta el material de prenda");
+        requireNonNull(colorPrincipal,"Falta el color principal de prenda");
+    }
+
     Prenda crearPrenda(){
-        if( this.materialPrenda != null && this.colorPrincipal != null){
-            return new Prenda(tipoPrenda,materialPrenda,colorPrincipal,colorSecundario,trama);
-        }
-        else{
-            throw new prendaInvalidaException("El material y el color principal son obligatorios")
-        }
+        validarPrenda();
+        return new Prenda(tipoPrenda,materialPrenda,colorPrincipal,colorSecundario,trama);
     }
     
 }
