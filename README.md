@@ -4,7 +4,6 @@ DIAGRAMA DE CLASES
 
 ![diagramaIteracion2.png](DiagramaDeClases/diagramaIteracion2.png)
 
-
 PSEUDOCODIGO
 
 enum CategoriaPrenda{
