@@ -8,6 +8,7 @@ DIAGRAMA DE CLASES
 PSEUDOCODIGO
 
 ----------------------------------- QMP1 -------------------------------------------------------------
+
 enum CategoriaPrenda{
 
     ACCESORIOS,
@@ -17,6 +18,7 @@ enum CategoriaPrenda{
 }
 
 enum Material{
+
     ALGODON,
     LANA,
     SEDA,
@@ -34,6 +36,7 @@ enum TipoPrenda{
 }
 
 enum TramaPrenda{
+
     LISA,
     RAYADA,
     CON_LUNARES,
@@ -68,7 +71,9 @@ Class Prenda{
         return tipo.getCategoria()
     }    
 }
+
 ----------------------------------- QMP2 -------------------------------------------------------------
+
 Class BorradorPrenda{
 
     TipoPrenda tipoPrenda
@@ -111,7 +116,9 @@ Class BorradorPrenda{
 }
 
 ----------------------------------- QMP5 -------------------------------------------------------------
+
 Class Guardarropas {
+
     String nombre
     List<Prenda> prendasGuardadas
     List<Propuesta> propuestas
@@ -142,6 +149,7 @@ Class Guardarropas {
 }
 
 Class Usuario {
+
     List<Guardarropas> misGuardarropas
 
     void agregarGuardarropas(Guardarropas guardarropa){misGuardarropas.add(guardarropa)}
@@ -160,6 +168,7 @@ Class Usuario {
 }
 
 enum Accion{
+
     abstract Accion getOpuesto();
     abstract void realizarAccion(Guardarropa guardarropa, Prenda prenda);
     
