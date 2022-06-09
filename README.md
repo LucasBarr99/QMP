@@ -189,6 +189,7 @@ enum Accion{
 }
 
 Class Propuesta{
+
     Accion accion
     Prenda prenda
     Boolean fueAceptada = false
