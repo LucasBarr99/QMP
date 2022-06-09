@@ -7,6 +7,7 @@ DIAGRAMA DE CLASES
 
 PSEUDOCODIGO
 
+----------------------------------- QMP1 -------------------------------------------------------------
 enum CategoriaPrenda{
 
     ACCESORIOS,
@@ -67,7 +68,7 @@ Class Prenda{
         return tipo.getCategoria()
     }    
 }
-
+----------------------------------- QMP2 -------------------------------------------------------------
 Class BorradorPrenda{
 
     TipoPrenda tipoPrenda
@@ -107,4 +108,100 @@ Class BorradorPrenda{
         return new Prenda(tipoPrenda,materialPrenda,colorPrincipal,colorSecundario,trama);
     }
     
+}
+
+----------------------------------- QMP5 -------------------------------------------------------------
+Class Guardarropas {
+    String nombre
+    List<Prenda> prendasGuardadas
+    List<Propuesta> propuestas
+
+    Guardarropas(String nombre){
+        this.nombre = nombre
+    }
+    
+    void agregarPrenda(Prenda prenda){prendasGuardadas.add(prenda)}
+
+    void eliminarPrenda(Prenda prenda){prendasGuardadas.remove(prenda)}
+
+    void agregarPropuestaPendiente(Propuesta propuesta){propuestasPendientes.add(propuesta)}
+
+    void propuestaAceptada(Propuesta propuesta){
+        propuesta.fueAceptada(this)
+    }
+
+    void propuestaRechazada(Propuesta propuesta){
+        propuestas.remove(propuesta)
+    }
+
+    void deshacerPropuestasAceptadas(){
+        this.propuestasAceptadas().forEach({propuesta -> propuesta.deshacerAccion(this)})
+    }
+
+    List<Propuesta> propuestasAceptadas(){return this.propuestas.filter(propuesta ->propuesta.fueAceptada())}
+}
+
+Class Usuario {
+    List<Guardarropas> misGuardarropas
+
+    void agregarGuardarropas(Guardarropas guardarropa){misGuardarropas.add(guardarropa)}
+
+    void crearGuardarropasCompartido(String nombreGuardarropas, Usuario colaborador){
+        Guardarropas guardarropa = new Guardarropas(nombreGuardarropas)
+        this.agregarGuardarropas(guardarropa)
+        colaborador.agregarGuardarropas(guardarropa)
+    }
+
+    void proponerTentativamente(Accion accion,Prenda prenda, Guardarropas guardarropa){
+        Propuesta propuesta = new Propuesta(accion, prenda)
+        guardarropa.agregarPropuesta(propuesta)
+    }
+
+}
+
+enum Accion{
+    abstract Accion getOpuesto();
+    abstract void realizarAccion(Guardarropa guardarropa, Prenda prenda);
+    
+    AGREGAR {
+        @override
+        Accion getOpuesto() {return QUITAR}
+    
+        @override
+        void realizarAccion(Guardarropa guardarropa, Prenda prenda) {guardarropa.agregarPrenda(prenda)}
+    },
+    QUITAR{
+        @override
+        Accion getOpuesto() {return AGREGAR}
+
+        @override
+        void realizarAccion(Guardarropa guardarropa, Prenda prenda) {guardarropa.eliminarPrenda(prenda)}
+    }
+}
+
+Class Propuesta{
+    Accion accion
+    Prenda prenda
+    Boolean fueAceptada = false
+
+    Propuesta(Accion accion,Prenda prenda){
+        this.accion = accion
+        this.prenda = prenda
+    }
+
+    void fueAceptada(Guardarropa guardarropa){
+        this.fueAceptada = true
+        this.accion.realizarAccion(guardarropa,this.prenda)
+    }
+
+    Accion getAccionOpuesta(){return this.accion.getOpuesto()}
+
+    Boolean fueAceptada() {return this.fueAceptada}
+
+    void deshacerAccion(Guardarropa guardarropa){
+        this.getAccionOpuesta().realizarAccion(guardarropa,this.prenda)
+    }
+
+    
+
 }
