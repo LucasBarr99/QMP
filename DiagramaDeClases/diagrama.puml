@@ -48,11 +48,59 @@ class BorradorPrenda{
     crearPrenda()
 }
 
+class Guardarropas{
+    String nombre
+    List<Prenda> prendasGuardadas
+    List<Propuesta> propuestas
+
+    agregarPrenda(Prenda)
+    eliminarPrenda(Prenda)
+    agregarPropuestaPendiente(Propuesta)
+    propuestaRechazada(Propuesta)
+    deshacerPropuestasAceptadas()
+
+}
+
+class Usuario{
+    List<Guardarropas> misGuardarropas
+
+    crearGuardarropasCompartido(String, Usuario)
+    proponerTentativamente(Accion, Prenda, Guardarropas)
+    aceptarPropuesta(Propuesta, Guardarropa)
+    rechazarPropuesta(Propuesta, Guardarropa)
+    deshacerPropuestasAceptadas(Guardarropa)
+}
+
+enum Accion{
+    AGREGAR
+    QUITAR
+
+    getOpuesto()
+    realizarAccion(Guardarropa, Prenda)
+}
+
+class Propuesta{
+    Accion accion
+    Prenda prenda
+    Boolean fueAceptada
+
+    fueAceptada(Guardarropa)
+    getAccionOpuesta()
+    getFueAceptada()
+
+}
 
 
-Prenda -up-> TipoPrenda
+
+TipoPrenda <-- Prenda
 Prenda -up-> Material
 Prenda -up-> TramaPrenda
 TipoPrenda --> CategoriaPrenda
 BorradorPrenda .up.> Prenda
+
+Guardarropas ->"*" Prenda
+Guardarropas -->"*" Propuesta
+Propuesta --> Accion
+Propuesta -> Prenda
+Usuario -->"*" Guardarropas
 @enduml
